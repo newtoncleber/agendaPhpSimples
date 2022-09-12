@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-br" >
 
@@ -18,7 +21,7 @@
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.css'><link rel="stylesheet" href="./style.css">
 
 </head>
-
+<body>
 
 <h2 class="md text-center my-2 versaomobile">AGENDAMENTO DE LICENÇAS</h2>
       <div class="container flex">
@@ -78,8 +81,13 @@
 
 
             </form>
+            <br/>
+            <span style="color: red;"><?=$_SESSION['mensagem']?></span>
+            <?php $_SESSION['mensagem']="";?>
+            <br/>
+            <br/>
 
-<body>
+
 <!-- partial:index.partial.html -->
 <div id='calendar'></div>
 <!-- partial -->

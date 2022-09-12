@@ -8,11 +8,6 @@
 	$Inicio = mysqli_real_escape_string($conexao, $_POST['Inicio']); 
 	$Fim = mysqli_real_escape_string($conexao, $_POST['Fim']);
 	
-	function phpAlert($msg) {
-		echo '<script type="text/javascript">alert("' . $msg . ', ' . $_POST['Licenca'] . '")</script>';
-	}
-	phpAlert("TESTANDO AQUI");
-
 	//testa as três possibilidades de overlaping
 	//1- ('{$Inicio}' >= Inicio AND '{$Inicio}' < Fim) - busca eventos cadastrados que começam antes e terminam depois do INICIO novo agendamento
 	//2- ('{$Fim}' > Inicio AND '{$Fim}' <= Fim) - busca eventos cadastrados que começam antes e terminam depois do FIM novo agendamento
@@ -25,11 +20,11 @@
 	if (mysqli_num_rows($resposta)==0){//so insere o novo evento se não houver overlap
 		$funciona_ai = "insert into AGENDA (Licenca, Operacao, Email, Inicio, Fim) values ('{$Licenca}', '{$Operacao}', '{$Email}', '{$Inicio}', '{$Fim}');";
 		mysqli_query($conexao, $funciona_ai);
-		phpAlert("Evento Cadastrado.");
+		$_SESSION['mensagem'] = "Evento Cadastrado.";
 	}else{
-		phpAlert("Não foi possível cadastrar o novo evento. Existem outros eventos cadastrados para o intervalo.");
+		$_SESSION['mensagem'] = "Não foi possível cadastrar o novo evento. Existem outros eventos cadastrados para o intervalo.";
 	}
 	
-	//header("Location: index.php");
+	header("Location: index.php");
 	
 ?>
